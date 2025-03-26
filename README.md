@@ -8,9 +8,9 @@ Dalam pembuatan API endpoint ini, saya menggunakan bahasa pemrograman yaitu java
 
 ### STEP-STEP
 1. Menginisialisasi projek baru dengan
-    ```
-    npm init -y
     ```bash
+    npm init -y
+    ```
 2. Menginstall dependensi yang dibutuhkan
     - express
     Berguna untuk memudahkan dalam pembuatan API.
@@ -18,13 +18,13 @@ Dalam pembuatan API endpoint ini, saya menggunakan bahasa pemrograman yaitu java
     Berguna untuk mengotomasi restart dari node.js saat terjadi perubahan kode.
     - moment
     Berguna untuk memformat date.
-    ```
+    ```bash
         npm install -g nodemon
         npm install express
         npm install moment
-    ```bash
-3. Mengupdate package.json
     ```
+3. Mengupdate package.json
+    ```js
     {
             "name": "express-api",
             "version": "1.0.0",
@@ -42,9 +42,9 @@ Dalam pembuatan API endpoint ini, saya menggunakan bahasa pemrograman yaitu java
             "nodemon": "^2.0.22"
         }
     }
-    ```js
+    ```
 4. Menulis kode API
-```
+```js
 const express = require('express');
 const app = express();
 const moment = require('moment');
@@ -66,4 +66,4 @@ app.listen(3000, () => {
     console.log('Server is running on port 8080');
 });
 
-```js
+```
