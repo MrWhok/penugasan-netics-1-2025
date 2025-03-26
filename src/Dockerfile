@@ -10,7 +10,7 @@ COPY . .
 
 
 
-FROM node:18-alpine As runtime
+FROM node:18-alpine AS runtime
 
 WORKDIR /app
 
