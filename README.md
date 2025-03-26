@@ -67,3 +67,16 @@ app.listen(3000, () => {
 });
 
 ```
+5. Testing endpoint 
+    - Jalankan kode
+        ```bash
+        npm run dev
+        ```
+    - Buka browser lalu masukan url
+        ```
+        http://localhost:3000/health
+        ```
+    - Hasil
+        ![media/image1.1.png]
+    
+    Dalam gambar diatas terlihat bahwa kode sudah berjalan dengan baik.
