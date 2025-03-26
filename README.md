@@ -82,3 +82,57 @@ app.listen(3000, () => {
         ![](media/image1.1.png)
     
     Dalam gambar diatas terlihat bahwa kode sudah berjalan dengan baik.
+
+## Implementasi dengan Docker
+
+Terdapat 2 stage pada implementasi Dockerfile nya, yaitu stage build dan stage runtime. Setelah menjadi docker image akan dipush ke docker hub.
+
+### STEP-STEP
+1. Stage build
+```Dockerfile
+FROM node:18 AS build
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install --only=production
+
+COPY . .
+```
+
+Dapat dilihat bahwa `COPY package*.json` dilakukan terpisah karena jika tidak terdapat perubahan package*.json maka `npm install` tidak akan dijalankan. Akan tetapi, jika kita melakukan `COPY . .` secara langsung dan terdapat perubahan file apapun maka akan merusak cache sehingga mengharuskan untuk `npm install` lagi. 
+
+2. Stage runtime
+```Dockerfile
+FROM node:18-alpine As runtime
+
+WORKDIR /app
+
+COPY --from=build /app/node_modules ./node_modules
+
+COPY --from=build /app .
+
+EXPOSE 3000
+
+CMD [ "node","app.js" ]
+```
+
+Pada stage tersebut akan meng copy hasil dari stage build ke stage runtime. Dapat dilihat bahwa `node_modules` di copy terlebih dahulu karena alasan caching seperti pada stage build.
+
+3. Testing endpoint dengan docker 
+    - Build menjaid docker image
+        ```bash
+        docker build -t end-api:latest .
+        ```
+    - Jalankan docker container
+        ```bash
+        docker run -p 3000:3000 end-api
+        ```
+    - Hasil
+    
+
+        ![](media/image2.1.png)
+    
+    Dalam gambar diatas terlihat bahwa kode sudah berjalan dengan baik.
+
