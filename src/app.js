@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
-const moment = require('moment');
+const moment = require('moment-timezone');
 const startTime=Date.now();
 
 app.get('/health', (req, res) => {
-    const currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
+    const currentTime = moment().tz("Asia/Jakarta").format('YYYY-MM-DD HH:mm:ss');
     const uptime = (Date.now() - startTime) / 1000;
     res.json({
         nama: "Tunas Bimatara Chrisnanta Budiman",
