@@ -16,8 +16,8 @@ Dalam pembuatan API endpoint ini, saya menggunakan bahasa pemrograman yaitu java
     Berguna untuk memudahkan dalam pembuatan API.
     - nodemon
     Berguna untuk mengotomasi restart dari node.js saat terjadi perubahan kode.
-    - moment
-    Berguna untuk memformat date.
+    - moment-timezone
+    Berguna untuk mendapatkan timestamp pada zona tertentu.
     ```bash
         npm install -g nodemon
         npm install express
@@ -47,11 +47,11 @@ Dalam pembuatan API endpoint ini, saya menggunakan bahasa pemrograman yaitu java
 ```js
 const express = require('express');
 const app = express();
-const moment = require('moment');
+const moment = require('moment-timezone');
 const startTime=Date.now();
 
 app.get('/health', (req, res) => {
-    const currentTime = moment().format('YYYY-MM-DD HH:mm:ss');
+    const currentTime = moment().tz("Asia/Jakarta").format('YYYY-MM-DD HH:mm:ss');
     const uptime = (Date.now() - startTime) / 1000;
     res.json({
         nama: "Tunas Bimatara Chrisnanta Budiman",
@@ -63,7 +63,7 @@ app.get('/health', (req, res) => {
 });
 
 app.listen(3000, () => {
-    console.log('Server is running on port 8080');
+    console.log('Server is running on port 3000');
 });
 
 ```
