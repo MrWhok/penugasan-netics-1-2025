@@ -135,4 +135,32 @@ Pada stage tersebut akan meng copy hasil dari stage build ke stage runtime. Dapa
         ![](media/image2.1.png)
     
     Dalam gambar diatas terlihat bahwa kode sudah berjalan dengan baik.
+4. Push ke docker hub
+    - login
+    ```bash
+    docker login -u <your-username> -p <your-password>
+    ```
+    - push
+    ```bash
+        docker push aydin3008/end:api latest
+    ```
 
+
+
+## Deployment dengan Azurlane
+### STEP-STEP
+1. Membuat container registry
+Mengisi semua yang diperlukan pada [link ini](https://portal.azure.com/?Microsoft_Azure_Education_correlationId=d3db8e9d-042b-41d5-8f02-71d38032b4b8&Microsoft_Azure_Education_newA4E=true&Microsoft_Azure_Education_asoSubGuid=39d178a7-04b4-4d5b-b743-02832f4f10ad#view/Microsoft_Azure_Marketplace/GalleryItemDetailsBladeNopdl/id/Microsoft.ContainerRegistry/selectionMode~/false/resourceGroupId//resourceGroupLocation//dontDiscardJourney~/false/selectedMenuId/home/launchingContext~/%7B%22galleryItemId%22%3A%22Microsoft.ContainerRegistry%22%2C%22source%22%3A%5B%22GalleryFeaturedMenuItemPart%22%2C%22VirtualizedTileDetails%22%5D%2C%22menuItemId%22%3A%22home%22%2C%22subMenuItemId%22%3A%22Search%20results%22%2C%22telemetryId%22%3A%221c984327-6cb3-435b-98b8-4728b60c05f4%22%7D/searchTelemetryId/79a766f5-00ac-4c2b-93f4-3b9b8f140dee)
+
+
+2. Buat container instance
+Mengisi pada link [ini](https://portal.azure.com/?Microsoft_Azure_Education_correlationId=d3db8e9d-042b-41d5-8f02-71d38032b4b8&Microsoft_Azure_Education_newA4E=true&Microsoft_Azure_Education_asoSubGuid=39d178a7-04b4-4d5b-b743-02832f4f10ad#view/Microsoft_Azure_Marketplace/GalleryItemDetailsBladeNopdl/id/Microsoft.ContainerInstances/selectionMode~/false/resourceGroupId//resourceGroupLocation//dontDiscardJourney~/false/selectedMenuId/home/launchingContext~/%7B%22galleryItemId%22%3A%22Microsoft.ContainerInstances%22%2C%22source%22%3A%5B%22GalleryFeaturedMenuItemPart%22%2C%22VirtualizedTileDetails%22%5D%2C%22menuItemId%22%3A%22home%22%2C%22subMenuItemId%22%3A%22Search%20results%22%2C%22telemetryId%22%3A%225ea4c72a-7822-4ddb-82b3-2f67711baec6%22%7D/searchTelemetryId/58eb99df-e507-4007-9477-3de6c5f84aa6)
+
+3. Pilih image source Other registry
+4. Masukan image yang sudah di push pada docker hub
+5. Tambahkan port 3000 dengan protocol TCP
+6. Hasil
+    
+        ![](media/image3.1.png)
+
+    Dalam gambar tersebut terlihat bahwa telah sukses men deploy.
