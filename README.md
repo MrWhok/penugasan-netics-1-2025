@@ -161,6 +161,6 @@ Mengisi pada link [ini](https://portal.azure.com/?Microsoft_Azure_Education_corr
 5. Tambahkan port 3000 dengan protocol TCP
 6. Hasil
     
-        ![](media/image3.1.png)
+    ![](media/image3.1.png)
 
     Dalam gambar tersebut terlihat bahwa telah sukses men deploy.
