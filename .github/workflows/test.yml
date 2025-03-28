@@ -21,6 +21,8 @@ jobs:
     
       - name: Install dependencies
         run: npm install
+        working-directory: src
     
       - name: Run the tests
         run: npm test
+        working-directory: src
