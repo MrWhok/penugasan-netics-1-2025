@@ -46,8 +46,8 @@ jobs:
       - name: Build and Push Image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./src/Dockerfile
+          context: src
+          file: src/Dockerfile
           push: true
           tags: aydin3008/end-api:latest
 
