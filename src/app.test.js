@@ -1,6 +1,7 @@
 const request = require("supertest");
-const app = require("./app");
 const moment = require("moment-timezone");
+const { app, server } = require("./app");
+
 
 describe("GET /health", () => {
     let response;
@@ -8,6 +9,11 @@ describe("GET /health", () => {
     beforeAll(async () => {
         response = await request(app).get("/health");
     });
+
+    afterAll(() => {
+        server.close(); 
+    });
+
 
     it("should return status 200", () => {
         expect(response.statusCode).toEqual(200);
@@ -45,8 +51,7 @@ describe("GET /health", () => {
         expect(response.body.uptime).toBeGreaterThan(0);
     });
 
-    it("should listen on port 3000", async () => {
-        const serverPort = app.settings.port || 3000;
-        expect(serverPort).toBe(3000);
+    it("should listen on port 3000", () => {
+        expect(server.address().port).toBe(3000);
     });
 });
