@@ -170,26 +170,20 @@ Mengisi pada link [ini](https://portal.azure.com/?Microsoft_Azure_Education_corr
 Step implementasi dengan docker hingga deployment dengan Microsoft Azur dapat dilakukan secara otomatis dengan github actions. Selain itu juga dapat digunakan untuk mengecek apakah kode yang dibuat sudah sesuai atau tidak terlebih dahulu.
 ### STEP-STEP
 #### Menambahkan job untuk cek dan test code
-1. Install jest dan ESLint
+1. Install jest 
     - Jest
     Untuk melakukan test pada code.
-    - ESLint
-    Untuk mengecek syntax code.
 
     ```bash
     npm install --save-dev jest supertest
     ```
-
-    ```bash
-    npm install --save-dev eslint
-    ```
 2. Buat jest.config.js
 ```js
 module.exports = {
-  testEnvironment: "node",
-  roots: ["<rootDir>/src"],
-  collectCoverage: true,
-  collectCoverageFrom: ["src/**/*.js"],
+    testEnvironment: "node",
+    roots: ["<rootDir>"],  
+    collectCoverage: true,
+    collectCoverageFrom: ["**/*.js"], 
 };
 
 ```
@@ -213,3 +207,16 @@ module.exports = {
         6. Value dari variabel timestamp harus sesuai dengan zona asia/jakarta
         7. Value dari variabel uptime harus lebih dari 0
         8. Port nya harus 3000
+
+5. Update app.js
+Tambahkan code berikut di akhir baris,
+```js
+module.exports = app;
+```
+
+6. Testing pada local
+- Ganti value port dan NRP
+    
+    ![](media/image4.1.png)
+
+    Terlihat bahwa hasilnya sesuai karena menggagalkan 2 test.

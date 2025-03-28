@@ -8,7 +8,7 @@ app.get('/health', (req, res) => {
     const uptime = (Date.now() - startTime) / 1000;
     res.json({
         nama: "Tunas Bimatara Chrisnanta Budiman",
-        nrp: "5025231999",
+        nrp: "502523199",
         status: "UP",
         timestamp: currentTime,
         uptime: uptime
