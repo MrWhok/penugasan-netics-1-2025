@@ -147,7 +147,7 @@ Pada stage tersebut akan meng copy hasil dari stage build ke stage runtime. Dapa
 
 
 
-## Deployment dengan Azurlane
+## Deployment dengan Micorsoft Azur
 ### STEP-STEP
 1. Membuat container registry
 Mengisi semua yang diperlukan pada [link ini](https://portal.azure.com/?Microsoft_Azure_Education_correlationId=d3db8e9d-042b-41d5-8f02-71d38032b4b8&Microsoft_Azure_Education_newA4E=true&Microsoft_Azure_Education_asoSubGuid=39d178a7-04b4-4d5b-b743-02832f4f10ad#view/Microsoft_Azure_Marketplace/GalleryItemDetailsBladeNopdl/id/Microsoft.ContainerRegistry/selectionMode~/false/resourceGroupId//resourceGroupLocation//dontDiscardJourney~/false/selectedMenuId/home/launchingContext~/%7B%22galleryItemId%22%3A%22Microsoft.ContainerRegistry%22%2C%22source%22%3A%5B%22GalleryFeaturedMenuItemPart%22%2C%22VirtualizedTileDetails%22%5D%2C%22menuItemId%22%3A%22home%22%2C%22subMenuItemId%22%3A%22Search%20results%22%2C%22telemetryId%22%3A%221c984327-6cb3-435b-98b8-4728b60c05f4%22%7D/searchTelemetryId/79a766f5-00ac-4c2b-93f4-3b9b8f140dee)
@@ -164,3 +164,52 @@ Mengisi pada link [ini](https://portal.azure.com/?Microsoft_Azure_Education_corr
     ![](media/image3.1.png)
 
     Dalam gambar tersebut terlihat bahwa telah sukses men deploy.
+
+
+## Melakukan otomisasi dengan Github Action
+Step implementasi dengan docker hingga deployment dengan Microsoft Azur dapat dilakukan secara otomatis dengan github actions. Selain itu juga dapat digunakan untuk mengecek apakah kode yang dibuat sudah sesuai atau tidak terlebih dahulu.
+### STEP-STEP
+#### Menambahkan job untuk cek dan test code
+1. Install jest dan ESLint
+    - Jest
+    Untuk melakukan test pada code.
+    - ESLint
+    Untuk mengecek syntax code.
+
+    ```bash
+    npm install --save-dev jest supertest
+    ```
+
+    ```bash
+    npm install --save-dev eslint
+    ```
+2. Buat jest.config.js
+```js
+module.exports = {
+  testEnvironment: "node",
+  roots: ["<rootDir>/src"],
+  collectCoverage: true,
+  collectCoverageFrom: ["src/**/*.js"],
+};
+
+```
+3. Update package.json
+    Update dan tambahkan syntax berikut pada package.json
+    ```js
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "jest --config jest.config.js"
+  },
+    ```
+4. Buat app.test.js
+    Buat file app.test.js untuk menambahkan testing pada code. 
+    Test-test tersebut berupa:
+        1. Memastikan mempunyai /health endpoint
+        2. Response status code nya harus 200 yang menandakan sukses
+        3. Struktur json nya harus benar, yaitu nama, nrp ,status, timestamp, uptime
+        4. Value dari variabel nama, nrp, dan status harus sesuai
+        5. Variabel timestamp harus mengikuti format yang YYYY-MM-DD HH:mm:ss
+        6. Value dari variabel timestamp harus sesuai dengan zona asia/jakarta
+        7. Value dari variabel uptime harus lebih dari 0
+        8. Port nya harus 3000
