@@ -220,3 +220,81 @@ module.exports = app;
     ![](media/image4.1.png)
 
     Terlihat bahwa hasilnya sesuai karena menggagalkan 2 test.
+
+7. Buat job untuk mengetest code
+
+```yml
+name: Run Tests
+
+on:
+  push:
+    branches:
+      main
+  pull_request:
+
+jobs: 
+  test:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+    
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+    
+      - name: Install dependencies
+        run: npm install
+        working-directory: src
+    
+      - name: Run the tests
+        run: npm test
+        working-directory: src
+```
+Code diatas merupakan isi dari TestCode.yml yang berguna untuk melakukan npm test ketika ada push yang mengarah ke main dan juga ketika ada pull request.
+
+8. Testing pada Github Actions
+
+    ![](media/image4.2.png)
+
+    Terlihat bahwa job yang dibuat berjalan dengan baik.
+
+
+### Menambahkan job untuk build dan push docker image
+1. Tambahkan DOCKER_PASSWORD di github bagian secret
+2. Buat job baru untuk push dan build
+```yml
+    BuildAndPush:
+      runs-on: ubuntu-latest
+      needs: TestCode
+      steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up docker buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Login to docker hub
+        uses: docker/login-action@v3
+        with:
+          username: aydin3008
+          password: ${{ secrets.DOCKER_PASSWORD }}
+        
+      - name: Build and Push Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./src/Dockerfile
+          push: true
+          tags: aydin3008/end-api:latest
+```
+- Checkout repository 
+    Melakukan checkout pada branch
+- Set up docker buildx
+    Melakukan pre build, seperti caching
+- Login to docker hub
+    Melakukan login ke docker hub dengan username dan password. Password diambil dari secret
+- Build and Push Image
+    Melakukan push ke docker-hub
