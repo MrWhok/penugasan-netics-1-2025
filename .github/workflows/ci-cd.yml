@@ -51,3 +51,28 @@ jobs:
           push: true
           tags: aydin3008/end-api:latest
 
+  DeployToAzure:
+    runs-on: ubuntu-latest
+    needs: BuildAndPush
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Deploy to Azure Container Instance
+        uses: azure/aci-deploy@v1
+        with: 
+          resource-group: myresourcegroup  
+          dns-name-label: end-api-aydin  
+          image: aydin3008/end-api:latest  
+          registry-login-server: docker.io
+          name: end-api-container
+          location: Southeast Asia 
+          ports: 3000
+          cpu: 0.5
+          memory: 1.5
+

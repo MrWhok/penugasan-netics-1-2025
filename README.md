@@ -8,7 +8,7 @@ Dalam pembuatan API endpoint ini, saya menggunakan bahasa pemrograman yaitu java
 
 ### STEP-STEP
 1. Menginisialisasi projek baru dengan
-    ```bash
+    ```sh
     npm init -y
     ```
 2. Menginstall dependensi yang dibutuhkan
@@ -18,7 +18,7 @@ Dalam pembuatan API endpoint ini, saya menggunakan bahasa pemrograman yaitu java
     Berguna untuk mengotomasi restart dari node.js saat terjadi perubahan kode.
     - moment-timezone
     Berguna untuk mendapatkan timestamp pada zona tertentu.
-    ```bash
+    ```sh
         npm install -g nodemon
         npm install express
         npm install moment
@@ -69,7 +69,7 @@ app.listen(3000, () => {
 ```
 5. Testing endpoint 
     - Jalankan kode
-        ```bash
+        ```sh
         npm run dev
         ```
     - Buka browser lalu masukan url
@@ -122,11 +122,11 @@ Pada stage tersebut akan meng copy hasil dari stage build ke stage runtime. Dapa
 
 3. Testing endpoint dengan docker 
     - Build menjaid docker image
-        ```bash
+        ```sh
         docker build -t end-api:latest .
         ```
     - Jalankan docker container
-        ```bash
+        ```sh
         docker run -p 3000:3000 end-api
         ```
     - Hasil
@@ -137,11 +137,11 @@ Pada stage tersebut akan meng copy hasil dari stage build ke stage runtime. Dapa
     Dalam gambar diatas terlihat bahwa kode sudah berjalan dengan baik.
 4. Push ke docker hub
     - login
-    ```bash
+    ```sh
     docker login -u <your-username> -p <your-password>
     ```
     - push
-    ```bash
+    ```sh
         docker push aydin3008/end:api latest
     ```
 
@@ -174,7 +174,7 @@ Step implementasi dengan docker hingga deployment dengan Microsoft Azur dapat di
     - Jest
     Untuk melakukan test pada code.
 
-    ```bash
+    ```sh
     npm install --save-dev jest supertest
     ```
 2. Buat jest.config.js
@@ -298,3 +298,53 @@ Code diatas merupakan isi dari TestCode.yml yang berguna untuk melakukan npm tes
     Melakukan login ke docker hub dengan username dan password. Password diambil dari secret
 - Build and Push Image
     Melakukan push ke docker-hub
+
+3. Hasil
+
+
+    ![](media/image4.3.png)
+
+
+Pada gambar diatas terlihata bahwa job yang dibuat telah suskes. 
+
+### Menambahkan job untuk deploy ke Microsoft Azure
+1. Dapatkan credential untuk github action
+```sh
+az ad sp create-for-rbac --name "my-github-actions" --role contributor --scopes /subscriptions/<SUBSCRIPTION_ID> --sdk-auth
+```
+Output yang didapat berupa json. Simpan pada github actions dengan nama AZURE_CREDENTIALS
+
+2. Tambahkan job baru untuk deploy ke Azure
+```yml
+  DeployToAzure:
+    runs-on: ubuntu-latest
+    needs: BuildAndPush
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Deploy to Azure Container Instance
+        uses: azure/aci-deploy@v1
+        with: 
+          resource-group: myresourcegroup  
+          dns-name-label: end-api-aydin  
+          image: aydin3008/end-api:latest  
+          registry-login-server: docker.io
+          name: end-api-container
+          location: Southeast Asia 
+          ports: 3000
+          cpu: 0.5
+          memory: 1.5
+```
+- Checkout repository 
+    Melakukan checkout pada branch
+- Login to Azure
+    Melakukan login pada microsoft azure dengan credentials
+- Deploy to Azure Container Instance
+    Melakukan deploy ke microsoft azure
+
