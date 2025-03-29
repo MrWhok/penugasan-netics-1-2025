@@ -348,3 +348,24 @@ Output yang didapat berupa json. Simpan pada github actions dengan nama AZURE_CR
 - Deploy to Azure Container Instance
     Melakukan deploy ke microsoft azure
 
+3. Mendapatkan url
+Dapat dilakukan dengan command
+```sh
+az container show --resource-group myResourceGroup --name end-api-container --query ipAddress.fqdn --output tsv
+```
+Output yang didapat seperti ini 
+
+    ![](image4.4.png)
+
+
+4. Hasil 
+
+    ![](image4.5.png)
+
+
+Hasil nya adalah sukses seperti pada gambar diatas.
+
+
+## Kesimpulan
+
+Untuk tahap yang dilakukan jika dengan manual adalah melakukan testing code, build dan push docker image, kemudian melakukan deploy di microsoft azure. Tentu hal ini akan memakan cukup waktu banyak jika dilakukan secara manual. Dengan adanya github actions ini, langkah-langkah tersebut dapat di otomisasi sehingga akan mempersingkat waktu menjadi jauh lebih cepat.
