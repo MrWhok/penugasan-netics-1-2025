@@ -205,11 +205,11 @@ module.exports = {
 3. Update package.json
     Update dan tambahkan syntax berikut pada package.json
     ```js
-  "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "jest --config jest.config.js"
-  },
+      "scripts": {
+      "start": "node app.js",
+      "dev": "nodemon app.js",
+      "test": "jest --config jest.config.js"
+      },
     ```
 4. Buat app.test.js
     Buat file app.test.js untuk menambahkan testing pada code. 
