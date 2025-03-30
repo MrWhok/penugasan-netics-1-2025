@@ -224,16 +224,20 @@ module.exports = app;
 7. Buat job untuk mengetest code
 
 ```yml
-name: Run Tests
+name: CI-CD
 
 on:
   push:
     branches:
-      main
+      - main
+    paths:
+      - 'src/**'
   pull_request:
+    paths:
+      - 'src/**'
 
 jobs: 
-  test:
+  TestCode:
     runs-on: ubuntu-latest
   
     steps:
@@ -244,7 +248,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-    
+      
+      - name: Cache npm dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('src/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+  
       - name: Install dependencies
         run: npm install
         working-directory: src
@@ -253,7 +265,7 @@ jobs:
         run: npm test
         working-directory: src
 ```
-Code diatas merupakan isi dari TestCode.yml yang berguna untuk melakukan npm test ketika ada push yang mengarah ke main dan juga ketika ada pull request.
+Code diatas merupakan isi dari ci-cd.yml yang berguna untuk melakukan npm test ketika ada push yang mengarah ke main dan juga ketika ada pull request dan hanya akan berjalan jika yang berubah ada pada direktori src.
 
 8. Testing pada Github Actions
 
@@ -266,10 +278,10 @@ Code diatas merupakan isi dari TestCode.yml yang berguna untuk melakukan npm tes
 1. Tambahkan DOCKER_PASSWORD di github bagian secret
 2. Buat job baru untuk push dan build
 ```yml
-    BuildAndPush:
-      runs-on: ubuntu-latest
-      needs: TestCode
-      steps:
+  BuildAndPush:
+    runs-on: ubuntu-latest
+    needs: TestCode
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -279,16 +291,16 @@ Code diatas merupakan isi dari TestCode.yml yang berguna untuk melakukan npm tes
       - name: Login to docker hub
         uses: docker/login-action@v3
         with:
-          username: aydin3008
+          username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
         
       - name: Build and Push Image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./src/Dockerfile
+          context: src
+          file: src/Dockerfile
           push: true
-          tags: aydin3008/end-api:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/end-api:latest
 ```
 - Checkout repository 
     Melakukan checkout pada branch
@@ -333,7 +345,7 @@ Output yang didapat berupa json. Simpan pada github actions dengan nama AZURE_CR
         with: 
           resource-group: myresourcegroup  
           dns-name-label: end-api-aydin  
-          image: aydin3008/end-api:latest  
+          image: ${{ secrets.DOCKER_USERNAME }}/end-api:latest  
           registry-login-server: docker.io
           name: end-api-container
           location: Southeast Asia 
