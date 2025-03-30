@@ -144,7 +144,7 @@ Pada stage tersebut akan meng copy hasil dari stage build ke stage runtime. Dapa
     ```sh
         docker push aydin3008/end:api latest
     ```
-
+    Hasil dari docker image yang di push ke docker hub ada pada link [ini](https://hub.docker.com/repository/docker/aydin3008/end-api/general)
 
 
 ## Deployment dengan Micorsoft Azur
