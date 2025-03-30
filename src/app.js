@@ -9,7 +9,7 @@ app.get('/health', (req, res) => {
     res.json({
         nama: "Tunas Bimatara Chrisnanta Budiman",
         nrp: "5025231999",
-        status: "DOWN",
+        status: "UP",
         timestamp: currentTime,
         uptime: uptime
     });
