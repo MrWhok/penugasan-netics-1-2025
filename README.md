@@ -212,8 +212,10 @@ module.exports = {
       },
     ```
 4. Buat app.test.js
+
     Buat file app.test.js untuk menambahkan testing pada code. 
     Test-test tersebut berupa:
+    
         1. Memastikan mempunyai /health endpoint
         2. Response status code nya harus 200 yang menandakan sukses
         3. Struktur json nya harus benar, yaitu nama, nrp ,status, timestamp, uptime
