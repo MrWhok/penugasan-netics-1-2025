@@ -249,6 +249,7 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
+          cache-dependency-path: src/package-lock.json 
 
       - name: Install dependencies
         run: npm install
