@@ -1,6 +1,21 @@
 # penugasan-netics-1-2025
+| Name           | NRP        | 
+| ---            | ---        | 
+| Rafif Aydin Ahmad | 5025231198 | 
+
 
 Pada repository ini berisi step-step pengerjaan dan dokumentasi untuk tugas 1 oprec netics.
+
+## Daftar Isi
+
+- [1. Pembuatan API endpoint](#pembuatan-api-endpoint)
+- [2. Implementasi dengan Docker](#implementasi-dengan-docker)
+- [3. Deployment dengan Microsoft Azure](#deployment-dengan-microsoft-azure)
+- [4. Melakukan otomisasi dengan Github Actions](#melakukan-otomisasi-dengan-github-action)
+    - [4.1 Job untuk Tes Kode](#menambahkan-job-untuk-cek-dan-test-code)
+    - [4.2 Job untuk Build dan Push Docker](#menambahkan-job-untuk-build-dan-push-docker-image)
+    - [4.3 Job untuk mendeploy ke Microsoft Azure](#menambahkan-job-untuk-deploy-ke-microsoft-azure)
+- [5. Kesimpulan](#kesimpulan)
 
 ## Pembuatan API endpoint
 
@@ -147,10 +162,10 @@ Pada stage tersebut akan meng copy hasil dari stage build ke stage runtime. Dapa
     Hasil dari docker image yang di push ke docker hub ada pada link [ini](https://hub.docker.com/repository/docker/aydin3008/end-api/general)
 
 
-## Deployment dengan Micorsoft Azur
+## Deployment dengan Microsoft Azure
 ### STEP-STEP
 1. Membuat container registry
-Mengisi semua yang diperlukan pada [link ini](https://portal.azure.com/?Microsoft_Azure_Education_correlationId=d3db8e9d-042b-41d5-8f02-71d38032b4b8&Microsoft_Azure_Education_newA4E=true&Microsoft_Azure_Education_asoSubGuid=39d178a7-04b4-4d5b-b743-02832f4f10ad#view/Microsoft_Azure_Marketplace/GalleryItemDetailsBladeNopdl/id/Microsoft.ContainerRegistry/selectionMode~/false/resourceGroupId//resourceGroupLocation//dontDiscardJourney~/false/selectedMenuId/home/launchingContext~/%7B%22galleryItemId%22%3A%22Microsoft.ContainerRegistry%22%2C%22source%22%3A%5B%22GalleryFeaturedMenuItemPart%22%2C%22VirtualizedTileDetails%22%5D%2C%22menuItemId%22%3A%22home%22%2C%22subMenuItemId%22%3A%22Search%20results%22%2C%22telemetryId%22%3A%221c984327-6cb3-435b-98b8-4728b60c05f4%22%7D/searchTelemetryId/79a766f5-00ac-4c2b-93f4-3b9b8f140dee)
+Mengisi semua yang diperlukan pada link [ini](https://portal.azure.com/?Microsoft_Azure_Education_correlationId=d3db8e9d-042b-41d5-8f02-71d38032b4b8&Microsoft_Azure_Education_newA4E=true&Microsoft_Azure_Education_asoSubGuid=39d178a7-04b4-4d5b-b743-02832f4f10ad#view/Microsoft_Azure_Marketplace/GalleryItemDetailsBladeNopdl/id/Microsoft.ContainerRegistry/selectionMode~/false/resourceGroupId//resourceGroupLocation//dontDiscardJourney~/false/selectedMenuId/home/launchingContext~/%7B%22galleryItemId%22%3A%22Microsoft.ContainerRegistry%22%2C%22source%22%3A%5B%22GalleryFeaturedMenuItemPart%22%2C%22VirtualizedTileDetails%22%5D%2C%22menuItemId%22%3A%22home%22%2C%22subMenuItemId%22%3A%22Search%20results%22%2C%22telemetryId%22%3A%221c984327-6cb3-435b-98b8-4728b60c05f4%22%7D/searchTelemetryId/79a766f5-00ac-4c2b-93f4-3b9b8f140dee)
 
 
 2. Buat container instance
