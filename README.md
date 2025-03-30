@@ -248,15 +248,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-      
-      - name: Cache npm dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('src/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-  
+          cache: 'npm'
+
       - name: Install dependencies
         run: npm install
         working-directory: src
@@ -293,6 +286,14 @@ Code diatas merupakan isi dari ci-cd.yml yang berguna untuk melakukan npm test k
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+              ${{ runner.os }}-buildx-
         
       - name: Build and Push Image
         uses: docker/build-push-action@v5
@@ -305,9 +306,11 @@ Code diatas merupakan isi dari ci-cd.yml yang berguna untuk melakukan npm test k
 - Checkout repository 
     Melakukan checkout pada branch
 - Set up docker buildx
-    Melakukan pre build, seperti caching
+    Melakukan pre build (agar lebih cepat dari docker build)
 - Login to docker hub
     Melakukan login ke docker hub dengan username dan password. Password diambil dari secret
+- Cache Docker layers
+    Melakukan caching
 - Build and Push Image
     Melakukan push ke docker-hub
 
