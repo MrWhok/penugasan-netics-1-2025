@@ -7,7 +7,7 @@ app.get('/health', (req, res) => {
     const currentTime = moment().tz("Asia/Jakarta").format('YYYY-MM-DD HH:mm:ss');
     const uptime = (Date.now() - startTime) / 1000;
     res.json({
-        nama: "Tunas Bimatara Chrisnanta Bidiman",
+        nama: "Tunas Bimatara Chrisnanta Budiman",
         nrp: "5025231999",
         status: "DOWN",
         timestamp: currentTime,
