@@ -355,12 +355,12 @@ az container show --resource-group myResourceGroup --name end-api-container --qu
 ```
 Output yang didapat seperti ini 
 
-    ![](image4.4.png)
+![](media/image4.4.png)
 
 
 4. Hasil 
 
-    ![](image4.5.png)
+![](media/image4.5.png)
 
 
 Hasil nya adalah sukses seperti pada gambar diatas.
@@ -368,4 +368,4 @@ Hasil nya adalah sukses seperti pada gambar diatas.
 
 ## Kesimpulan
 
-Untuk tahap yang dilakukan jika dengan manual adalah melakukan testing code, build dan push docker image, kemudian melakukan deploy di microsoft azure. Tentu hal ini akan memakan cukup waktu banyak jika dilakukan secara manual. Dengan adanya github actions ini, langkah-langkah tersebut dapat di otomisasi sehingga akan mempersingkat waktu menjadi jauh lebih cepat.
+Untuk tahap yang dilakukan jika dengan manual adalah melakukan testing code, build dan push docker image, kemudian melakukan deploy di microsoft azure. Tentu hal ini akan memakan cukup waktu banyak jika dilakukan secara manual. Dengan adanya github actions ini, langkah-langkah tersebut dapat di otomisasi sehingga akan mempersingkat waktu menjadi jauh lebih cepat dan juga meminimalisasi error karena kesalahan penulisan.
