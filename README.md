@@ -424,3 +424,6 @@ Step implementasi dengan docker hingga deployment dengan Microsoft Azur dapat di
 ## Kesimpulan
 
 Untuk tahap yang dilakukan jika dengan manual adalah melakukan testing code, build dan push docker image, kemudian melakukan deploy di microsoft azure. Tentu hal ini akan memakan cukup waktu banyak jika dilakukan secara manual. Dengan adanya github actions ini, langkah-langkah tersebut dapat di otomisasi sehingga akan mempersingkat waktu menjadi jauh lebih cepat dan juga meminimalisasi error karena kesalahan penulisan.
+
+
+### TES
